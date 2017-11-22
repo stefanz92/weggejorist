@@ -28,7 +28,7 @@
                 onload: function(response) {
                     currentComment.css({'cursor':'default'});
                     if (response.responseText == '0 results') {
-                        currentComment.parent().html('Reaguursel niet gevonden');
+                        currentComment.parent().html('-reaguursel niet gevonden-');
                         return;
                     }
                     var commentdata = JSON.parse(response.responseText);
