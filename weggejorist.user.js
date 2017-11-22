@@ -24,7 +24,7 @@
         var commentid = currentComment.parent().parent().data('commentid');
             GM_xmlhttpRequest({
                 method: "GET",
-                url: "https://dumpert-mail180203.codeanyapp.com/ajax.php?commentid="+commentid,
+                url: "http://37.139.0.57/ajax.php?commentid="+commentid,
                 onload: function(response) {
                     currentComment.css({'cursor':'default'});
                     if (response.responseText == '0 results') {
