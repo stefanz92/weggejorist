@@ -21,21 +21,22 @@
     $('.comments').on('click', '.show-me', function () {
         var currentComment = $(this);
         currentComment.css({'cursor':'wait'});
-        var commentid = currentComment.parent().parent().data('commentid');
+        var commentFooter = currentComment.parent().parent().find('footer').text();
             GM_xmlhttpRequest({
-                method: "GET",
-                url: "http://37.139.0.57/ajax.php?commentid="+commentid,
+                method: "POST",
+                data: "searchtext="+commentFooter,
+                url: "https://dumpstats.nl/weggejorist",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
                 onload: function(response) {
+                    var comment = $('<div>'+response.responseText+'</div>').find('.container .content i').html();
                     currentComment.css({'cursor':'default'});
-                    if (response.responseText == '0 results') {
+                    if (!comment) {
                         currentComment.parent().html('-reaguursel niet gevonden-');
                         return;
                     }
-                    var commentdata = JSON.parse(response.responseText);
-                    if (commentdata.lenght !== 0) {
-                        currentComment.parent().html(commentdata[0].comment);
-                    }
-                    // alert(response.responseText);
+                    currentComment.parent().html(comment);
                 }
             });
     });
